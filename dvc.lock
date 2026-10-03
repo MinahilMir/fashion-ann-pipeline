@@ -45,33 +45,20 @@ stages:
       size: 973
     params:
       params.yaml:
-<<<<<<< HEAD
-        train.batch_size: 32
-        train.epochs: 15
-=======
         train.batch_size: 64
-        train.epochs: 10
->>>>>>> exp-different-batch
+        train.epochs: 15
         train.learning_rate: 0.001
     outs:
     - path: model/ann_model.h5
       hash: md5
-<<<<<<< HEAD
-      md5: 0bfbd7912080fd116bfd7e833edb0856
-=======
-      md5: 5be9de25f55af355727488804530c540
->>>>>>> exp-different-batch
+      md5: 75440964fa0eb57429542b8c90c676ab
       size: 1343728
   evaluate:
     cmd: python src/evaluate.py
     deps:
     - path: model/ann_model.h5
       hash: md5
-<<<<<<< HEAD
-      md5: 0bfbd7912080fd116bfd7e833edb0856
-=======
-      md5: 5be9de25f55af355727488804530c540
->>>>>>> exp-different-batch
+      md5: 75440964fa0eb57429542b8c90c676ab
       size: 1343728
     - path: src/evaluate.py
       hash: md5
@@ -80,9 +67,5 @@ stages:
     outs:
     - path: metrics.json
       hash: md5
-<<<<<<< HEAD
-      md5: c52dfa47e2850454865d25cb9a403e43
-=======
-      md5: 22c17f07899c2ec12a449cd4c02adce6
->>>>>>> exp-different-batch
+      md5: ba834801f39b9053b20154ca88c66c31
       size: 84
