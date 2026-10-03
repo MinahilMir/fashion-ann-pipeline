@@ -1,0 +1,71 @@
+schema: '2.0'
+stages:
+  prepare:
+    cmd: python src/prepare.py
+    deps:
+    - path: src/prepare.py
+      hash: md5
+      md5: e31bdc40a2310f0f74195b83a40ea122
+      size: 422
+    outs:
+    - path: data/raw
+      hash: md5
+      md5: 23b0000338669d2c61217dbd94633aa0.dir
+      size: 54950512
+      nfiles: 4
+  preprocess:
+    cmd: python src/preprocess.py
+    deps:
+    - path: data/raw
+      hash: md5
+      md5: 23b0000338669d2c61217dbd94633aa0.dir
+      size: 54950512
+      nfiles: 4
+    - path: src/preprocess.py
+      hash: md5
+      md5: 8288aa59030d3de5c6f68e3f010c1272
+      size: 712
+    outs:
+    - path: data/processed
+      hash: md5
+      md5: d8adee7655a4fcf210490c4b9a8f893f.dir
+      size: 219590512
+      nfiles: 4
+  train:
+    cmd: python src/train.py
+    deps:
+    - path: data/processed
+      hash: md5
+      md5: d8adee7655a4fcf210490c4b9a8f893f.dir
+      size: 219590512
+      nfiles: 4
+    - path: src/train.py
+      hash: md5
+      md5: 3b0c111a7a75468249287eee63c56b82
+      size: 973
+    params:
+      params.yaml:
+        train.batch_size: 32
+        train.epochs: 5
+        train.learning_rate: 0.001
+    outs:
+    - path: model/ann_model.h5
+      hash: md5
+      md5: babad43597fa1271946fddd341782255
+      size: 1343728
+  evaluate:
+    cmd: python src/evaluate.py
+    deps:
+    - path: model/ann_model.h5
+      hash: md5
+      md5: babad43597fa1271946fddd341782255
+      size: 1343728
+    - path: src/evaluate.py
+      hash: md5
+      md5: ac2a48006ccf3846fa7166d395e736b1
+      size: 482
+    outs:
+    - path: metrics.json
+      hash: md5
+      md5: 48db8d5760113118f62587e3c7aee0b9
+      size: 84
